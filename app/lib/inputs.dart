@@ -56,13 +56,15 @@ class Inputs {
   static String get _sha {
     final String pathEventPayload = Platform.environment['GITHUB_EVENT_PATH'];
     final Map<String, dynamic> eventPayload =
-        jsonDecode(File(pathEventPayload).readAsStringSync());
+        jsonDecode(File(pathEventPayload).readAsStringSync())
+            as Map<String, dynamic>;
     final String commitSha = Platform.environment['GITHUB_SHA'];
     stderr.writeln('SHA that triggered the workflow: $commitSha');
-    final Map<String, dynamic> pullRequest = eventPayload['pull_request'];
+    final Map<String, dynamic> pullRequest =
+        eventPayload['pull_request'] as Map<String, dynamic>;
     if (pullRequest != null) {
-      final String baseSha = pullRequest['base']['sha'];
-      final String headSha = pullRequest['head']['sha'];
+      final String baseSha = pullRequest['base']['sha'] as String;
+      final String headSha = pullRequest['head']['sha'] as String;
       if (commitSha != headSha) {
         stderr.writeln('Base SHA: $baseSha');
         stderr.writeln('Head SHA: $headSha');

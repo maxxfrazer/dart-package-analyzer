@@ -8,7 +8,7 @@ import 'package:github_actions_toolkit/github_actions_toolkit.dart' as gaction;
 
 const logger = gaction.log;
 
-dynamic main(List<String> args) async {
+dynamic main(final List<String> args) async {
   exitCode = 0;
 
   // Parsing user inputs and environment variables
@@ -28,7 +28,7 @@ dynamic main(List<String> args) async {
     }
   }
 
-  Future<void> _exitProgram([dynamic cause]) async {
+  Future<void> _exitProgram([final dynamic cause]) async {
     await tryCancelAnalysis(cause);
     await Future.wait<dynamic>([stderr.done, stdout.done]);
     logger.error('Exiting with code $exitCode');
@@ -61,7 +61,7 @@ dynamic main(List<String> args) async {
       exitCode = panaProcessResult.exitCode;
       await _exitProgram();
     }
-    if (panaProcessResult.stderr
+    if ((panaProcessResult.stderr as String)
         .toLowerCase()
         .contains("can't load kernel binary")) {
       throw Exception("SDK incompatibility");
@@ -73,7 +73,7 @@ dynamic main(List<String> args) async {
     }
 
     final report = Report.fromOutput(
-        jsonDecode(panaProcessResult.stdout) as Map<String, dynamic>);
+        jsonDecode(panaProcessResult.stdout as String) as Map<String, dynamic>);
 
     if (report.errorMessage != null) {
       throw Exception(report.errorMessage);
@@ -90,7 +90,8 @@ dynamic main(List<String> args) async {
       'Setting outputs',
       () async {
         final outputs = <String, String>{
-          "json_output": jsonEncode(jsonDecode(panaProcessResult.stdout)),
+          "json_output":
+              jsonEncode(jsonDecode(panaProcessResult.stdout as String)),
           "total": report.grantedPoints?.toString(),
           "total_max": report.maxPoints?.toString()
         };

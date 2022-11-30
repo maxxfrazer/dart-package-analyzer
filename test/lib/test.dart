@@ -3,12 +3,12 @@ library test;
 class Test {
   final int valueTest;
   const Test({
-     @deprecated this.valueTest,
+    @deprecated this.valueTest,
   });
 }
 
 class Test2 {
-  final int  valueA;
+  final int valueA;
   const Test2({
     @deprecated this.valueA,
   });
@@ -22,7 +22,7 @@ class Calculator {
 
 class Test3 {
   @deprecated
-  final valueTest;
+  final int valueTest;
   const Test3(@deprecated this.valueTest);
 }
 

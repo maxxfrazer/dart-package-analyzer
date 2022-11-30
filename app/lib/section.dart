@@ -17,10 +17,10 @@ class Section {
   */
 
   Section.fromJSON(Map<String, dynamic> json)
-      : id = json['id'],
-        status = json['status'],
-        title = json['title'],
+      : id = json['id'] as String,
+        status = json['status'] as String,
+        title = json['title'] as String,
         grantedPoints = json['grantedPoints'] as int,
         maxPoints = json['maxPoints'] as int,
-        summary = json['summary'];
+        summary = json['summary'] as String;
 }

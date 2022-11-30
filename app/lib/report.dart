@@ -1,5 +1,6 @@
-import 'package:app/section.dart';
 import 'package:meta/meta.dart';
+
+import 'section.dart';
 
 class Report {
   final String packageName;
@@ -35,14 +36,14 @@ class Report {
     final flutterVersion = flutterInfo['frameworkVersion'] as String;
     final dartInFlutterVersion = flutterInfo['dartSdkVersion'] as String;
     final scores = output['scores'] as Map<String, dynamic>;
-    final int grantedPoints = scores['grantedPoints'];
-    final int maxPoints = scores['maxPoints'];
-    final String errorMessage = output['errorMessage'];
+    final int grantedPoints = scores['grantedPoints'] as int;
+    final int maxPoints = scores['maxPoints'] as int;
+    final String errorMessage = output['errorMessage'] as String;
     final sections = <Section>[];
 
     final supportedPlatforms = <String, List<String>>{};
 
-    final List<dynamic> tags = output['tags'];
+    final List<dynamic> tags = output['tags'] as List<dynamic>;
     if (tags != null) {
       List.castFrom<dynamic, String>(tags).forEach((tag) {
         final splitted = tag.split(":");
